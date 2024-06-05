@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderAdminCreated;
+use App\Mail\OrderCreated;
+use App\Mail\OrderModified;
 use App\Models\Device;
 use App\Models\Models;
 use App\Models\Order;
 use App\Models\Reparation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 use function Laravel\Prompts\select;
@@ -93,6 +97,32 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
+    public function storeUser(Request $request)
+    {
+        // Valida y guarda la nueva orden
+        $validatedData = $request->validate([
+            'user_id' => 'required|int',
+            'reparation_id' => 'required|int',
+            'order_date' => 'required|date',
+            'status' => 'required|string|max:255',
+            'reparation_date' => 'nullable|date',
+        ]);
+
+        $order = Order::create($validatedData);
+
+        // Obtén el cliente y el administrador
+        $client = User::findOrFail($order->user_id);
+        $admin = User::where('admin', 1)->first(); // Suponiendo que solo hay un administrador
+
+        // Envía el correo electrónico al cliente
+        Mail::to($client->email)->send(new OrderCreated($order));
+
+        // Envía el correo electrónico al administrador
+        Mail::to('tecnoinformaticahuelva@gmail.com')->send(new OrderAdminCreated($order, $client));
+
+        return redirect()->back()->with('success', 'Orden creada con éxito');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -114,7 +144,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        $mail = false;
         $order = Order::findOrFail($request->id);
+        $client = User::findOrFail($order->user_id);
+
+        if($request->status != $order->status){
+            $mail = true;
+        }
+
         $order->update([
             'user_id' => $request->user_id,
             'status' => $request->status,
@@ -122,6 +159,10 @@ class OrderController extends Controller
             'reparation_date' => $request->reparation_date,
             'reparation_id' => $request->reparation_info['reparation_id'],
         ]);
+
+        if($mail){
+            Mail::to($client->email)->send(new OrderModified($order));
+        }
 
         return redirect()->back()->with('success', 'Orden actualizada con éxito');
     }
@@ -135,4 +176,5 @@ class OrderController extends Controller
         $order->delete();
         return redirect()->back();
     }
+
 }

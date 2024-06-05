@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "datatables.net-vue3": "^3.0.1",
-        "vue-next-select": "^2.10.5"
+        "vue-next-select": "^2.10.5",
+        "vue-toastification": "^2.0.0-rc.5"
     }
 }

@@ -44,7 +44,13 @@
           <span class="ml-2 text-sm text-gray-600">Recuerdame</span>
         </label>
       </div>
-      <div class="text-center">
+      <div class="flex items-center justify-between">
+        <Link
+            :href="route('register')"
+            class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            ¿No tienes cuenta?
+          </Link>
         <PrimaryButton
           :class="{ 'opacity-25': form.processing }"
           :disabled="form.processing"

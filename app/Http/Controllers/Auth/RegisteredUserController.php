@@ -14,17 +14,11 @@ use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): Response
     {
         return Inertia::render('Auth/Register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     */
     public function store(RegisterRequest $request): RedirectResponse
     {
         $user = User::create([
@@ -39,6 +33,7 @@ class RegisteredUserController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended();
+        // Redirige a la URL almacenada o a la página principal por defecto
+        return redirect()->intended('/');
     }
 }

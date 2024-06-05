@@ -1,9 +1,8 @@
 <template>
-    <div class="flex justify-between items-center mt-4">
+    <div class="flex flex-col md:flex-row justify-between items-center mt-4 space-y-2 md:space-y-0 md:space-x-4">
         <div class="flex items-center space-x-2">
             <label for="perPage" class="text-sm">Elementos por página:</label>
             <select id="perPage" v-model="itemsPerPage" @change="updateItemsPerPage" class="rounded-md">
-                <!-- <option value="2">2</option> -->
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -13,14 +12,14 @@
         </div>
         <div class="flex items-center space-x-2">
             <button @click="goToPage(1)" :disabled="currentPage === 1"
-                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300">Primera</button>
+                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Primera</button>
             <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
-                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300">Anterior</button>
+                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
             <span class="text-sm">{{ currentPage }} de {{ totalPages }}</span>
             <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
-                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300">Siguiente</button>
+                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Siguiente</button>
             <button @click="goToPage(totalPages)" :disabled="currentPage === totalPages"
-                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300">Última</button>
+                class="rounded-md px-3 py-1 bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Última</button>
         </div>
     </div>
 </template>
@@ -56,3 +55,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+    .space-x-4 {
+        justify-content: center;
+    }
+}
+</style>

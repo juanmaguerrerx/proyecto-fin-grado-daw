@@ -1,48 +1,37 @@
 <template>
     <div>
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!-- FALTA EL FORMULARIO DE REPARACION AL HACER CLIC EN EL (AQUI FUNCION PARA LLEVAR AL FORM) -->
-        <!-- MAS QUE FORMULARIO ES COMO UNA MUESTRA QUE DE LA OPCION DE PEDIR, QUE LLEVE A LA PAGINA DE FORMULARIO, COMO EN UNA TIENDA AL MOSTRAR ARTICULO         -->
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        
+
         <Head :title="titulo" />
         <NavbarCat />
         <div class="min-h-screen bg-gray-100 pt-20">
-            <!-- Agrega el botón para mostrar/ocultar los filtros -->
-            <!-- Botón para mostrar/ocultar los filtros -->
             <button @click="toggleFilters" v-if="titulo != 'Modelos'"
-                class="block m-4 bg-gray-700  text-white py-2 px-4 rounded">
+                class="block m-4 bg-gray-700 text-white py-2 px-4 rounded">
                 {{ showFilters ? 'Ocultar Filtros' : 'Mostrar Filtros' }}
             </button>
 
-            <!-- Agrega los filtros dentro de un div con v-if="showFilters" para mostrarlos solo cuando se active -->
             <div v-if="showFilters && titulo != 'Modelos'" class="mt-2 ml-4">
-                <!-- Agrega el select para filtrar por modelo -->
                 <select v-if="titulo != 'Reparaciones'" v-model="selectedModel" @change="applyFilters"
                     class="w-3/4 md:w-auto py-2 border border-gray-300 rounded mb-2 mr-2 text-center">
                     <option value="">Todos los modelos</option>
                     <option v-for="model in models" :key="model.id" :value="model.id">{{ model.name }}</option>
                 </select>
 
-                <!-- Agrega el select para filtrar por tipo de dispositivo -->
                 <select v-model="selectedType" @change="applyFilters"
                     class="w-3/4 md:w-auto py-2 border border-gray-300 rounded mb-2 mr-2 text-center">
                     <option value="">Todos los tipos</option>
                     <option v-for="type in deviceTypes" :key="type" :value="type">{{ type }}</option>
                 </select>
 
-                <!-- Agrega el select para filtrar por tipo de reparación -->
                 <select v-model="selectedReparationType" v-if="titulo == 'Reparaciones'" @change="applyFilters"
                     class="w-3/4 md:w-auto py-2 border border-gray-300 rounded mb-2 mr-2 text-center">
                     <option value="">Todos los tipos de reparación</option>
                     <option v-for="type in reparationTypes" :key="type" :value="type">{{ type }}</option>
                 </select>
 
-                <!-- Agrega los inputs para establecer el rango de precios -->
                 <div v-if="titulo == 'Reparaciones'" class="flex">
                     <input v-model.number="minPrice" @change="applyFilters" type="number" placeholder="Precio mínimo"
                         class="w-3/4 md:w-40 py-2 border border-gray-300 rounded mb-1 text-center" />
-                        <div class="mx-4 mt-2">-</div>
+                    <div class="mx-4 mt-2">-</div>
                     <input v-model.number="maxPrice" @change="applyFilters" type="number" placeholder="Precio máximo"
                         class="w-3/4 md:w-40 py-2 border border-gray-300 rounded mb-1 text-center" />
                 </div>
@@ -55,7 +44,6 @@
                         class="w-full p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-                    <!-- Iterar sobre los elementos y mostrarlos como elementos de tienda -->
                     <div v-if="filteredItems.length > 0" v-for="item in paginatedFilteredItems" :key="item.id"
                         class="bg-white rounded-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 mx-4 cursor-pointer"
                         @click="handleItemClick(item)">
@@ -68,8 +56,7 @@
                             <img :src="getImgSrc(item)" :alt="item.name" class="w-full h-64 object-cover object-center">
                         </template>
                         <div class="p-4">
-                            <h2 class="text-gray-800 text-lg font-semibold">{{ item.model ? item.model + ' ' +
-            item.name
+                            <h2 class="text-gray-800 text-lg font-semibold">{{ item.model ? item.model + ' ' + item.name
             : item.name }}</h2>
                             <p class="mt-2 text-gray-600">{{ item.description }}</p>
                             <div class="mt-4">
@@ -78,7 +65,6 @@
                         </div>
                     </div>
 
-                    <!-- Hcer que esté centrado!!!! -->
                     <div v-else>
                         <h1 class="text-center text-2xl m-8">{{ 'No hay ' + titulo + ' que mostrar :(' }}</h1>
                     </div>
@@ -88,10 +74,8 @@
                     @update-items-per-page="updateItemsPerPage" @update-current-page="updateCurrentPage" />
             </div>
         </div>
-        <!-- Footer -->
         <footer class="bg-gray-800 text-white py-8 pl-14">
             <div class="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 px-6">
-                <!-- Enlaces del catálogo -->
                 <div>
                     <h3 class="text-lg font-semibold mb-2">Catálogo</h3>
                     <ul>
@@ -99,8 +83,7 @@
                             <Link :href="route('index')" class="text-gray-300 hover:text-white">Inicio</Link>
                         </li>
                         <li>
-                            <Link :href="route('device.indexUser')" class="text-gray-300 hover:text-white">
-                            Dispositivos
+                            <Link :href="route('device.indexUser')" class="text-gray-300 hover:text-white">Dispositivos
                             </Link>
                         </li>
                         <li>
@@ -121,8 +104,7 @@
                         <li>
                             <Link :href="route('logout')" method="post" as="button"
                                 class="text-gray-300 hover:text-white">
-                            Cerrar Sesión
-                            </Link>
+                            Cerrar Sesión</Link>
                         </li>
                     </ul>
                     <ul v-else>
@@ -136,7 +118,6 @@
                         </li>
                     </ul>
                 </div>
-                <!-- Enlaces a redes sociales -->
                 <div>
                     <h3 class="text-lg font-semibold mb-2">Redes sociales</h3>
                     <ul>
@@ -150,12 +131,12 @@
                             <Link href="#" class="text-gray-300 hover:text-white">Instagram</Link>
                         </li>
                         <li>
-                            <a href="https://github.com/juanmaguerrerx" target="_blank" class="text-gray-300 hover:text-white">Repositorio en GitHub</a>
+                            <a href="https://github.com/juanmaguerrerx" target="_blank"
+                                class="text-gray-300 hover:text-white">Repositorio en GitHub</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!-- Texto de derechos de autor -->
             <div class="text-center mt-8">
                 <p class="text-gray-300">© Juanma Guerrero 2024. Todos los derechos reservados.</p>
             </div>
@@ -166,14 +147,14 @@
 <script>
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import NavbarCat from './NavbarCat.vue';
-import Pagination from './Pagination.vue'; // Importa el componente de paginación aquí
+import Pagination from './Pagination.vue';
 
 export default {
     components: {
         NavbarCat,
         Link,
         Head,
-        Pagination, // Registra el componente de paginación
+        Pagination,
     },
     props: {
         items: Array,
@@ -202,7 +183,7 @@ export default {
             selectedReparationType: '',
             minPrice: null,
             maxPrice: null,
-            showFilters: false, // Agrega la propiedad para controlar la visibilidad de los filtros
+            showFilters: false,
         };
     },
     computed: {
@@ -245,17 +226,18 @@ export default {
         },
         updateItemsPerPage(newPerPage) {
             this.itemsPerPage = newPerPage;
+            this.goToTop();
         },
         updateCurrentPage(newPage) {
-            this.currentPfage = newPage;
+            this.currentPage = newPage;
+            this.goToTop();
         },
         handleItemClick(item) {
             if (this.titulo === 'Modelos') {
-                console.log(item);
                 this.navigateToPage('device.indexUserFilter', item.id);
             } else if (this.titulo === 'Dispositivos') {
                 this.navigateToPage('reparation.indexUserFilter', item.id);
-            }else if (this.titulo === 'Reparaciones') {
+            } else if (this.titulo === 'Reparaciones') {
                 this.navigateToPage('reparation.view', item.id);
             }
         },
@@ -268,6 +250,12 @@ export default {
         applyFilters() {
             this.currentPage = 1;
         },
+        goToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     },
 };
 </script>

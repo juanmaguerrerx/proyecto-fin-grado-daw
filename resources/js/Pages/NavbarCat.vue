@@ -62,7 +62,7 @@
           <Link :href="route('catalogue')" @click="toggleMobileMenu" class="text-white text-lg">Todo</Link>
           <div class="space-y-4 mt-4">
             <div v-if="user" class="text-center">
-              <Link :href="route('profile.edit')" @click="toggleMobileMenu" class="text-white text-lg">Perfil</Link>
+              &nbsp;&nbsp;<Link :href="route('profile.edit')" @click="toggleMobileMenu" class="text-white ml-10 text-lg">Perfil</Link> &nbsp;&nbsp; | &nbsp;&nbsp;
               <Link :href="route('logout')" method="post" as="button" @click="toggleMobileMenu" class="text-white text-lg">
                 Cerrar Sesión
               </Link>

@@ -7,6 +7,7 @@ const isSidebarOpen = ref(false);
 
 const page = usePage();
 const user = page.props.auth.user;
+const orders = page.props.orders;
 
 const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value;
@@ -92,13 +93,19 @@ function handleImageError() {
                             Contacto
                         </Link>
                     </li>
+                    <li v-if="orders.length != 0">
+                        <Link :href="route('ordersIndex')"
+                            class="block px-4 py-2 text-white dark:text-gray-200 hover:text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+                            Órdenes
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </aside>
 
         <div
             :class="{
-                'lg:ml-64': isSidebarOpen || !isSidebarOpen,
+                'lg:ml-64': true,
                 'flex-1': true,
                 'flex': true,
                 'flex-col': true,
@@ -159,7 +166,7 @@ function handleImageError() {
                                     cubrir las necesidades que le surjan a tu equipo informático.</p>
                             </div>
                             <div class="flex justify-center mt-2">
-                                <img src="images/tic.webp" alt="Imagen de Quiénes somos"
+                                <img src="/proyectos/2024/juanmaguerrero/tecno/public/images/tic.jpg" alt="Imagen de Quiénes somos"
                                     class="w-full lg:w-72 mb-4 h-56 rounded-xl">
                             </div>
                         </section>
@@ -171,7 +178,7 @@ function handleImageError() {
                                     adaptadas y actuales para la reparación de dispositivos. </p>
                             </div>
                             <div class="flex justify-center mt-2">
-                                <img src="images/sat.jpg" alt="Imagen de Quiénes somos"
+                                <img src="/proyectos/2024/juanmaguerrero/tecno/public/images/tic.jpg" alt="Imagen de Quiénes somos"
                                     class="w-full lg:w-72 h-56 rounded-xl">
                             </div>
                         </section>
@@ -206,7 +213,7 @@ function handleImageError() {
         </div>
     </div>
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 ml-64">
+    <footer class="bg-gray-800 text-white py-8 lg:ml-64">
         <div class="container mx-auto grid grid-cols-1 lg:grid-cols-5 gap-4 px-6">
             <!-- Enlaces de navegación -->
             <div class="mb-4 lg:mb-0">
@@ -220,6 +227,9 @@ function handleImageError() {
                     </li>
                     <li>
                         <Link :href="route('contact')" class="text-gray-300 hover:text-white">Contacto</Link>
+                    </li>
+                    <li v-if="orders.length != 0">
+                        <Link :href="route('ordersIndex')" class="text-gray-300 hover:text-white">Órdenes</Link>
                     </li>
                 </ul>
             </div>
@@ -282,7 +292,7 @@ function handleImageError() {
 </template>
 
 <style>
-*{
+* {
     scroll-behavior: smooth;
 }
 /* Asegura que el contenido principal respete el espacio del aside en pantallas pequeñas */
@@ -296,6 +306,12 @@ function handleImageError() {
 @media (max-width: 1024px) {
     header .hidden {
         display: none !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    footer {
+        margin-left: 16rem;
     }
 }
 </style>

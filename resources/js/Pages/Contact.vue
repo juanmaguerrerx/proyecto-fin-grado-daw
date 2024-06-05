@@ -55,6 +55,11 @@ const toggleSidebar = () => {
                             class="block px-4 py-2 text-white dark:text-gray-200 hover:text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
                         Contacto</Link>
                     </li>
+                    <li v-if="orders.length != 0">
+                        <Link :href="route('ordersIndex')"
+                            class="block px-4 py-2 text-white dark:text-gray-200 hover:text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+                        Órdenes</Link>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -93,10 +98,10 @@ const toggleSidebar = () => {
                         <h2 class="text-3xl mb-4 text-gray-800 dark:text-gray-200">Contáctanos</h2>
                         <div class="text-lg text-gray-600 dark:text-gray-400">
                             <p class="mb-4"><strong>Dirección:</strong> Av. de las Fuerzas Armadas, 8, 21007 Huelva</p>
-                            <p class="mb-4"><strong>Correo Electrónico:</strong> juanmaguerrero@hotmail.es</p>
+                            <p class="mb-4"><strong>Correo Electrónico:</strong> tecnoinformaticahuelva@gmail.com</p>
                             <p class="mb-4"><strong>Teléfono:</strong>  <a href="tel:959822715" class="text-blue-500 hover:underline">959 82 27 15</a> | <a href="tel:+34601417981" class="text-blue-500 hover:underline">+34 601 41 79 81</a></p>
                             <p class="mb-4"><strong>Nombre de contacto:</strong> Juanma Guerrero</p>
-                            <p class="mb-4"><strong>Horario de la tienda:</strong> Lunes a Jueves, 10:00 - 20:30 <br>Viernes, 10:00 - 14:30</p>
+                            <p class="mb-4"><strong>Horario de la tienda:</strong> Lunes a Jueves, 10:00 - 14:30 y 17:00 - 20:30 <br>Viernes, 10:00 - 14:30</p>
                         </div>
                     </section>
                 </main>
@@ -119,6 +124,9 @@ const toggleSidebar = () => {
                     </li>
                     <li>
                         <Link :href="route('contact')" class="text-gray-300 hover:text-white">Contacto</Link>
+                    </li>
+                    <li v-if="orders.length != 0">
+                        <Link :href="route('ordersIndex')" class="text-gray-300 hover:text-white">Órdenes</Link>
                     </li>
                 </ul>
             </div>

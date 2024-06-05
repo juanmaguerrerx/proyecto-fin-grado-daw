@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="./images/tih-logo-zip-file/png/logo-no-background.png" sizes="16x16" type="image/png">
-    <link rel="icon" href="./images/tih-logo-zip-file/png/logo-no-background.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="./images/tih-logo-zip-file/png/logo-no-background.png" sizes="48x48" type="image/png">
-    <link rel="icon" href="./images/tih-logo-zip-file/png/logo-no-background.png" sizes="64x64" type="image/png">
-    <link rel="icon" href="./images/tih-logo-zip-file/png/logo-no-background.png" sizes="128x128" type="image/png">
-    <link rel="icon" href="./images/tih-logo-zip-file/png/logo-no-background.png" sizes="256x256" type="image/png">
-    <link rel="icon" href="./images/tih-logo-zip-file/svg/logo-no-background.svg" type="image/svg+xml">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/png/logo-no-background.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/png/logo-no-background.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/png/logo-no-background.png" sizes="48x48" type="image/png">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/png/logo-no-background.png" sizes="64x64" type="image/png">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/png/logo-no-background.png" sizes="128x128" type="image/png">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/png/logo-no-background.png" sizes="256x256" type="image/png">
+    <link rel="icon" href="./public/images/tih-logo-zip-file/svg/logo-no-background.svg" type="image/svg+xml">
 
 
     <title inertia>{{ config('app.name', 'TecnoInformática') }}</title>

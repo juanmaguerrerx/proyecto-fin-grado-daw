@@ -1,5 +1,4 @@
 <template>
-
     <Head :title="titulo" />
     <div class="h-full w-full">
         <Navbar />
@@ -36,8 +35,7 @@
             </div>
             <button @click="toggleMobileMenu" class="absolute top-4 right-4 focus:outline-none">
                 <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </div>
@@ -45,7 +43,6 @@
         <br><br><br>
         <!-- Contenido principal -->
         <div class="pr-4 pl-4">
-            <!-- Buscador -->
             <h1 class="text-center text-2xl mb-3">Lista de {{ titulo }}</h1>
             <div class="relative mb-4">
                 <input type="text" v-model="searchQuery" placeholder="Buscar..."

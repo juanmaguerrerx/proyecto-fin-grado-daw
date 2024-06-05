@@ -264,7 +264,8 @@
                                     <input type="text" v-model="editRepairSearch" placeholder="Buscar reparación"
                                         class="border rounded-md px-2 py-1 mb-2 w-full">
                                     <!-- Select para elegir la reparación -->
-                                    <select v-model="order.reparation_info.reparation_id" class="border rounded-md px-2 py-1 w-full">
+                                    <select v-model="editedOrder.reparation_info.reparation_id"
+                                        class="border rounded-md px-2 py-1 w-full">
                                         <option :value="repair.id" v-for="repair in filteredRepairsEdit"
                                             :key="repair.id">{{ repair.name }}</option>
                                     </select>
@@ -279,7 +280,7 @@
                             </td>
                             <td class="py-2 px-4 border-b">
                                 <template v-if="editedIndex === index">
-                                    <input v-model="order.order_date" class="border rounded-md px-2 py-1" type="date">
+                                    <input v-model="editedOrder.order_date" class="border rounded-md px-2 py-1" type="date">
                                 </template>
                                 <template v-else>
                                     {{ order.order_date }}
@@ -287,7 +288,7 @@
                             </td>
                             <td class="py-2 px-4 border-b">
                                 <template v-if="editedIndex === index">
-                                    <select v-model="order.status" class="border rounded-md px-2 py-1">
+                                    <select v-model="editedOrder.status" class="border rounded-md px-2 py-1">
                                         <option v-for="status in statuses" :value="status">{{ status }}</option>
                                     </select>
                                 </template>
@@ -299,7 +300,7 @@
                             </td>
                             <td class="py-2 px-4 border-b">
                                 <template v-if="editedIndex === index">
-                                    <input v-model="order.reparation_date" class="border rounded-md px-2 py-1"
+                                    <input v-model="editedOrder.reparation_date" class="border rounded-md px-2 py-1"
                                         type="date">
                                 </template>
                                 <template v-else>
@@ -379,6 +380,7 @@ export default {
                 type: 'asc'
             },
             editedIndex: -1,
+            editedOrder: null,
             currentPage: 1,
             itemsPerPage: 10,
             statusFilter: '',
@@ -503,17 +505,22 @@ export default {
         },
         editOrder(index) {
             this.editedIndex = index;
+            // Crear una copia profunda de la orden seleccionada para editar
+            this.editedOrder = JSON.parse(JSON.stringify(this.filteredOrders[index]));
         },
         cancelEdit() {
             this.editedIndex = -1;
+            this.editedOrder = null; // Limpiar la orden editada
         },
         async updateOrder(index) {
-            const orderToUpdate = this.filteredOrders[index];
+            const orderToUpdate = this.editedOrder;
             console.log('Updated order:', orderToUpdate);
             if (this.tableName) {
                 try {
                     const response = await this.$inertia.put(`${this.tableName}/${orderToUpdate.id}`, orderToUpdate);
                     console.log('Cambios guardados exitosamente', response);
+                    // Actualizar la orden original con los cambios guardados
+                    this.$set(this.filteredOrders, index, orderToUpdate);
                 } catch (error) {
                     console.error('Error al guardar cambios:', error);
                 }
@@ -521,6 +528,7 @@ export default {
                 console.error('this.tableName es undefined');
             }
             this.editedIndex = -1;
+            this.editedOrder = null; // Limpiar la orden editada
         },
         getStatusClass(status) {
             switch (status) {

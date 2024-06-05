@@ -132,20 +132,19 @@ class ReparationController extends Controller
      */
     public function show($id)
     {
-        //
         $deviceId = Reparation::where('id', $id)->value('device_id');
         $deviceType = Device::where('id', $deviceId)->value('type');
         $deviceName = Device::where('id', $deviceId)->value('name');
-        $deviceId = Device::where('id', $deviceId)->value('model_id');
-        $model = Models::where('id', $deviceId)->value('name');
+        $modelId = Device::where('id', $deviceId)->value('model_id');
+        $model = Models::where('id', $modelId)->value('name');
         $reparationType = Reparation::where('id', $id)->value('reparation_type');
-        $item = Reparation::where('id', $id)->get();
+        $item = Reparation::where('id', $id)->first(); // Cambiar a first() para obtener el primer registro como un objeto
         $titulo = $reparationType . " " . $model . " " . $deviceName;
         return Inertia::render('Reparation', [
             'item' => $item,
             'name' => $titulo,
             'titulo' => $titulo,
-            'type' => $deviceType
+            'deviceType' => $deviceType, // Asegurarse de que deviceType está incluido
         ]);
     }
 
